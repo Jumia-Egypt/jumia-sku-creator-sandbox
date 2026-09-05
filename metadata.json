@@ -1,0 +1,6 @@
+{
+  "name": "J-Creator",
+  "description": "Internal web tool for Jumia to browse product catalogs, select variants, and submit batches for export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

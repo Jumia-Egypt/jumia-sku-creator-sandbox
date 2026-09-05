@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Reliable, browser-native fade-in for entrance transitions.
+   Uses a plain CSS animation instead of JS/rAF-driven physics so it
+   can never get stuck mid-flight (e.g. when a tab is backgrounded or
+   DevTools briefly pauses the rendering pipeline) — the "forwards"
+   fill-mode guarantees the element ends up fully visible regardless
+   of how many animation frames the browser actually delivers. */
+@keyframes fadeInSafe {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-safe {
+  animation: fadeInSafe 0.35s ease-out both;
+}
+@keyframes fadeInSafeNoY {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in-safe-noy {
+  animation: fadeInSafeNoY 0.35s ease-out both;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
