@@ -225,6 +225,18 @@ const slugify = (s: string): string =>
 // Variant type still has a colorCode field a few other places read.
 const colorNameToSwatch = (_name: string): string => '#9CA3AF';
 
+// Some rows only have a raw hotlinked `image1` (e.g. i.ibb.co) with no
+// pre-optimized `image1_hosted` copy. Hotlinked images are served full-size
+// and uncached, which is slow in the UI's variant grid (multiple images
+// load at once). Route those through wsrv.nl — a free public image proxy —
+// to resize to the actual thumbnail size and re-encode as WebP, cached at
+// its edge. Rows that already have an `image1_hosted` optimized copy are
+// left untouched and used as-is.
+const toFastThumbnail = (rawUrl: string): string => {
+  if (!rawUrl) return rawUrl;
+  return `https://wsrv.nl/?url=${encodeURIComponent(rawUrl)}&w=400&output=webp&q=80`;
+};
+
 interface MasterDataRow {
   barcode: string | null;
   brand: string | null;
@@ -251,7 +263,8 @@ const parseStorage = (s: string): [number, number] => {
 export async function loadLiveCatalog(): Promise<boolean> {
   const { data, error } = await sb
     .from('master_data')
-    .select('barcode, brand, model_family, ram, rom, color, image1, image1_hosted, is_new_launch');
+    .select('barcode, brand, model_family, ram, rom, color, image1, image1_hosted, is_new_launch')
+    .order('id', { ascending: true });
 
   if (error || !data || data.length === 0) {
     console.error('loadLiveCatalog: could not load sandbox catalog, keeping static sample data', error);
@@ -291,7 +304,7 @@ export async function loadLiveCatalog(): Promise<boolean> {
         modelFamilyId: famId,
         color: colorName,
         colorCode: colorNameToSwatch(colorName),
-        thumbnailUrl: row.image1_hosted || row.image1 || '',
+        thumbnailUrl: row.image1_hosted || toFastThumbnail(row.image1 || ''),
         storageOptions: [],
         storageSet: new Set<string>(),
         storageBarcodes: {}
