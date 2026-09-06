@@ -156,10 +156,12 @@ export const VariantScreen = () => {
                 <motion.div variants={itemAnim} key={variant.id} className="bg-white border border-gray-200/60 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/20 flex flex-col h-full">
                   <div className="flex flex-col p-6 bg-gradient-to-b from-gray-50/50 to-gray-50 border-b border-gray-200/60 shrink-0">
                     <div className="aspect-square bg-white border border-gray-200/60 rounded-2xl shadow-sm mb-4 p-2 relative group overflow-hidden">
-                      <motion.img 
+                      <motion.img
                         whileHover={{ scale: 1.05 }}
-                        src={variant.thumbnailUrl} 
-                        alt={variant.color} 
+                        src={variant.thumbnailUrl}
+                        alt={variant.color}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover rounded-xl transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
