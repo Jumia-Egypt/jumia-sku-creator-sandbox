@@ -123,29 +123,30 @@ export const VariantScreen = () => {
       initial="hidden"
       animate="show"
       exit="hidden"
-      className="flex flex-col lg:flex-row gap-8 w-full max-w-none mx-auto pt-8"
+      className="w-full max-w-none mx-auto pt-8"
     >
-      <div className="flex-1">
-        <motion.div variants={itemAnim} className="mb-10">
-          <button 
-            onClick={() => setCurrentView('model')}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-900 text-sm font-bold mb-6 transition-colors bg-white px-4 py-2 rounded-xl border border-gray-200/60 shadow-sm hover:shadow-md"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to Models
-          </button>
-          <div className="flex items-center gap-4 mb-2">
-            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-              {model.name}
-            </h2>
-            {model.isNew && (
-              <span className="bg-gradient-to-r from-orange-50 to-orange-100 text-[#F68B1E] text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-widest border border-orange-200/50">
-                New Launch
-              </span>
-            )}
-          </div>
-          <p className="text-gray-500 font-medium">Select colors and storage configurations.</p>
-        </motion.div>
+      <motion.div variants={itemAnim} className="mb-10">
+        <button
+          onClick={() => setCurrentView('model')}
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-900 text-sm font-bold mb-6 transition-colors bg-white px-4 py-2 rounded-xl border border-gray-200/60 shadow-sm hover:shadow-md"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Models
+        </button>
+        <div className="flex items-center gap-4 mb-2">
+          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+            {model.name}
+          </h2>
+          {model.isNew && (
+            <span className="bg-gradient-to-r from-orange-50 to-orange-100 text-[#F68B1E] text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-widest border border-orange-200/50">
+              New Launch
+            </span>
+          )}
+        </div>
+        <p className="text-gray-500 font-medium">Select colors and storage configurations.</p>
+      </motion.div>
 
+      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex-1">
         {variants.length > 0 ? (
           <motion.div variants={container} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {variants.map((variant) => {
@@ -368,6 +369,7 @@ export const VariantScreen = () => {
           </div>
         </div>
       </motion.div>
+      </div>
     </motion.div>
   );
 };
