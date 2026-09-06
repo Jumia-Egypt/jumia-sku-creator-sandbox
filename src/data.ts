@@ -42,6 +42,7 @@ export const brands: Brand[] = [
   { id: 'oppo', name: 'Oppo', deviceTypeIds: ['android'] },
   { id: 'vivo', name: 'Vivo', deviceTypeIds: ['android'] },
   { id: 'realme', name: 'Realme', deviceTypeIds: ['android'] },
+  { id: 'motorola', name: 'Motorola', deviceTypeIds: ['android'] },
 ];
 
 export const modelFamilies: ModelFamily[] = [
